@@ -2,8 +2,7 @@ require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
 	def setup 
-		
-		@post = Post.new(title: "my first post", content: "my first content")
+		@post = Post.new(title: "my first post", content: "my first conetent", user_id: '1')
 	end
 
 	test "should have title" do
@@ -23,6 +22,11 @@ class PostTest < ActiveSupport::TestCase
 
 	test "content shouldn't be too long" do
 		@post.content = "a" * 251
+		assert_not @post.valid?
+	end
+
+	test "should have user_id" do
+		@post.user_id = "       "
 		assert_not @post.valid?
 	end
 end
